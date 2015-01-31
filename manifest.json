@@ -1,13 +1,35 @@
 {
 	"name": "Shoutbox",
+	"description": "This extension allows a user to post straight to twitter from the omnibox",
 	"version": "1.0",
 	"manifest_version":2,
 	"omnibox": { "keyword" : "@" },
+
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html",
+		"default_title": "Tweet from the omnibox"
+		},
+
 	"icons": {
-	"16": "icon.png"
-	},
+		"16": "icon.png",
+		"19":"icon.png",
+		"48":"icon.png",
+		"128":"icon.png"
+		},
+	
+	"permissions":[
+		"notifications"
+		],
+	
+
+	"web_accessible_resources": [
+		"icon.png"
+		],
+
+
 	"background": {
-		"persistent": false,
+		"persistent": true,
 		"scripts": ["background.js"]
 	}
 }
