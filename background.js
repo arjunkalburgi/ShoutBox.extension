@@ -13,6 +13,7 @@ chrome.omnibox.onInputChanged.addListener(
 chrome.omnibox.onInputEntered.addListener(
   function(text) {
     console.log('inputEntered: ' + text);
+
     var no_of_char=0;
     no_of_char=text.length;
     

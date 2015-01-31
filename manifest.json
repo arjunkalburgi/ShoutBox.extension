@@ -1,5 +1,5 @@
 {
-	"name": "Shoutbox",
+	"name": "ShoutBox",
 	"description": "This extension allows a user to post straight to twitter from the omnibox",
 	"version": "1.0",
 	"manifest_version":2,
