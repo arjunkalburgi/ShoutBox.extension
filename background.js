@@ -34,15 +34,16 @@ chrome.omnibox.onInputEntered.addListener(
 	    
 	    if (Notification.permission !== "granted")
 	    Notification.requestPermission();
-		
-		var notification = new Notification('Character limit exceeded', {
-			icon: 'twittericon.png',
-			body: "Hey there! You've posted: " + "\n" + text,
-		});
-	   
+	    
 	    if (no_of_char>140) {
 			alert('im in the if');
-			notification.show();
+			var notification = new Notification('Character limit exceeded', {
+			    icon: 'twittericon.png',
+			    body: "Hey there! You've been notified!",
+			});
+			notification.onclick = function () {
+				window.open("http://twitter.com/");
+			}
 	    }
 	
 	}
