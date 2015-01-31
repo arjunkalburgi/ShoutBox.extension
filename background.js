@@ -1,9 +1,9 @@
-function resetDefaultSuggestion() {
-	
-	chrome.omnibox.setDefaultSuggestion({
-		description: " Type your tweet"
-	});
-} resetDefaultSuggestion();
+	// function resetDefaultSuggestion() {
+		
+	// 	chrome.omnibox.setDefaultSuggestion({
+	// 		description: " Type your tweet"
+	// 	});
+	// } resetDefaultSuggestion();
 
 // This event is fired each time the user updates the text in the omnibox,
 // as long as the extension's keyword mode is still active.
@@ -13,7 +13,7 @@ chrome.omnibox.onInputChanged.addListener(
     suggest([
       //{content: "Tweet this: " + text, description: "Make a tweet"},
       {content: "Tw: " + text, description: "Make a tweet"},
-      {content: "Fb: " + text, description: "Make a Facebook post"}
+      //{content: "Fb: " + text, description: "Make a Facebook post"}
 
     ]);
   });
@@ -24,10 +24,10 @@ chrome.omnibox.onInputEntered.addListener(
 	  	
 	    console.log('inputEntered: ' + text);
 	
-		var ar = text.split(":");
-		var type = ar[0];
-		var post = ar[1];
-		alert('The type of the tweet: ' + type + "\n" + 'The tweet: ' + post);
+		// var ar = text.split(":");
+		// var type = ar[0];
+		// var text = ar[1];
+		// alert('The type of the tweet: ' + type + "\n" + 'The tweet: ' + post);
 	
 	    var no_of_char=0;
 	    no_of_char=text.length;
@@ -37,7 +37,7 @@ chrome.omnibox.onInputEntered.addListener(
 		
 		var notification = new Notification('Character limit exceeded', {
 			icon: 'twittericon.png',
-			body: "Hey there! You've been notified!",
+			body: "Hey there! You've posted: " + "\n" + text,
 		});
 	   
 	    if (no_of_char>140) {
