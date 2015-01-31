@@ -4,8 +4,8 @@ chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
     console.log('inputChanged: ' + text);
     suggest([
-      {content: text + " one", description: "the first one"},
-      {content: text + " number two", description: "the second entry"}
+     // {content: "Tweet:" + text  , description: "Tweet this"},
+      
     ]);
   });
 
@@ -13,5 +13,22 @@ chrome.omnibox.onInputChanged.addListener(
 chrome.omnibox.onInputEntered.addListener(
   function(text) {
     console.log('inputEntered: ' + text);
-    alert('You just typed "' + text + '"');
+    var no_of_char=0;
+    no_of_char=text.length;
+    
+    if (Notification.permission !== "granted")
+    Notification.requestPermission();
+
+  var notification = new Notification('Character limit exceeded', {
+    icon: 'twittericon.png',
+    body: "Hey there! You've been notified!",
   });
+   
+    if (no_of_char>140) {
+      alert('im in the if');
+      notification.show();
+    }
+
+    alert('You just typed "' + text + '" and it has ' + no_of_char+'characters');
+  }
+  );
