@@ -1,18 +1,19 @@
-	// function resetDefaultSuggestion() {
-		
-	// 	chrome.omnibox.setDefaultSuggestion({
-	// 		description: " Type your tweet"
-	// 	});
-	// } resetDefaultSuggestion();
-
 // This event is fired each time the user updates the text in the omnibox,
 // as long as the extension's keyword mode is still active.
 chrome.omnibox.onInputChanged.addListener(
   function(text, suggest) {
+    
     console.log('inputChanged: ' + text);
+    
+    // First suggest line
+    chrome.omnibox.setDefaultSuggestion({
+            description: String(140-text.length) + ' characters remaining.'
+    });
+    
+    // Other suggest lines
     suggest([
       //{content: "Tweet this: " + text, description: "Make a tweet"},
-      {content: "Tw: " + text, description: "Make a tweet"},
+      //{content: "Tw: " + text, description: "Make a tweet"},
       //{content: "Fb: " + text, description: "Make a Facebook post"}
 
     ]);
@@ -45,6 +46,8 @@ chrome.omnibox.onInputEntered.addListener(
 				window.open("http://twitter.com/");
 			}
 	    }
+	    
+	    
 	
 	}
 );
