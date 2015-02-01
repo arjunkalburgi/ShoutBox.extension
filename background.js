@@ -12,9 +12,9 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	
 	// Other suggest lines
 	suggest([
-		//{content: "Tweet this: " + text, description: "Make a tweet"},
+		// {content: "Tweet this: " + text, description: "Make a tweet"},
 		// {content: text + " ", description: "Post with Twitter"},
-		//{content: "Fb: " + text, description: "Make a Facebook post"}
+		// {content: "Fb: " + text, description: "Make a Facebook post"}
 		
 	]);
 });

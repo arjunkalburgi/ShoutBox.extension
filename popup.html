@@ -37,15 +37,31 @@
 				3. On the following page, navigate to the "Keys and Access Tokens" tab. Copy and paste the Consumer Key
 				and Consumer Secret into the form below.
 				<br/><br/>
-				Consumer Key: <input>
-				Consumer Secret: <input>
+				Consumer Key: <input id="ck"><br/>
+				Consumer Secret: <input id="cs"> <br/>
+				Access Tolken: <input id="tk"> <br/>
+				Access Tolken Secret: <input id="ts">
+				<br/>
 			</div>
 			
 			<br/><br/>
 			
-			Save and you're ready to go!
-			<button>Save</button>
+			Save and you're ready to go!<br/>
+			<button onclick="pushkeystolocalStorage()">Save</button><br/>
 			Start posting tweets via the Omnibox!
+			
+			<script>
+			function pushkeystolocalStorage() {
+				var inputkey= document.getElementById("ck");
+				localStorage.setItem("ckey", inputkey.value);
+				var inputseckey= document.getElementById("cs");
+				localStorage.setItem("csec", inputseckey.value);
+				var inputtokkey= document.getElementById("tk");
+				localStorage.setItem("tkey", inputtokkey.value);
+				var inputtoksec= document.getElementById("ts");
+				localStorage.setItem("tsec", inputtoksec.value);
+			}
+			</script>
 		</h2>
 	</body>
 
