@@ -7,11 +7,11 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	
 	// First suggest line
 	var char_remain = new String();
-	if (text.length<140){
+	if (text.length<=140){
 			char_remain=String(140-text.length) + " Characters remaining";
 		}
 		else {
-			char_remain="0 Characters remaining";
+			char_remain="Too Long!";
 		}
 	chrome.omnibox.setDefaultSuggestion({
 //		
@@ -43,7 +43,7 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
     if (no_of_char>140) {
 		var notification = new Notification('Character limit exceeded', {
 			icon: 'twittericon.png',
-			body: "Hey there! You've been notified!",
+			body: "Oops! You're tweet was too long, try again!",
 		});
 		notification.onclick = function () {
 			window.open("http://twitter.com/");
