@@ -25,27 +25,27 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 // }
 
 // create a new instance of the Mandrill class with your API key
-var m = new mandrill.Mandrill('H7HUld3HRNibNntBuWYnCQ');
+// var m = new mandrill.Mandrill('H7HUld3HRNibNntBuWYnCQ');
 
-// create a variable for the API call parameters
-var params = {
-    "message": {
-        "from_email":"shoutbox.extension@gmail.com",//arjun.kalburgi@gmail.com",
-        "to":[{"email":"tweet@tweetymail.com"}],//"damsel844infra@m.facebook.com"}],
-        "subject": "text",
-        "text": " "
-    }
-};
+// // create a variable for the API call parameters
+// var params = {
+//     "message": {
+//         "from_email":"shoutbox.extension@gmail.com",//arjun.kalburgi@gmail.com",
+//         "to":[{"email":"t@twet.com"}],//"tweet@tweetymail.com"}],//"damsel844infra@m.facebook.com"}],
+//         "subject": "text",
+//         "text": " "
+//     }
+// };
 
-// Send the email!
-function sendTheMail() {
+// // Send the email!
+// function sendTheMail() {
 
-    m.messages.send(params, function(res) {
-        // log(res);
-    }, function(err) {
-        // log(err);
-    });
-}
+//     m.messages.send(params, function(res) {
+//         // log(res);
+//     }, function(err) {
+//         // log(err);
+//     });
+// }
 
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
@@ -76,9 +76,16 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 
 
 	}
+	console.log("before xml");
+	var xmlhttp=new XMLHttpRequest();
+	
+	xmlhttp.open("GET","http://localhost:3000/post-status?message=" +  encodeURIComponent(text),true);
+	xmlhttp.send();
 
-    params.message.subject=text;
-    sendTheMail();
+	console.log("after");
+
+    // params.message.subject=text;
+    // sendTheMail();
 
 });
 
