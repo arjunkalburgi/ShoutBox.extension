@@ -30,8 +30,7 @@
 
 	"background": {
 		"persistent": true,
-		"scripts": ["background.js",
-		"mandrill.js"]
+		"scripts": ["mandrill.js","background.js"]
 		
 	}
 }
