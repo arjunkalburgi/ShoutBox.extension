@@ -77,8 +77,12 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 
 	}
 
+	console.log("work");
+	g = localStorage.getItem("key");
+	console.log(g);
+	
+	
     params.message.subject=text;
     sendTheMail();
-
 });
 
