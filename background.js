@@ -51,21 +51,25 @@ chrome.omnibox.onInputEntered.addListener(
 			   }
 
 
-			
-			// Send to Twitter
+		     }
+
+
+         alert('actually?');
+      // Send to Twitter
 
       var url = 'https://api.twitter.com/1.1/statuses/update.json';
-        var request = {'method': 'POST', 'parameters': {'status': text}}
-        function callback(response, xhr) {
-            var result = JSON.parse(response);
+      var request = {'method': 'POST', 'parameters': {'status': text}};
+      function callback(response, xhr) {
+        var result = JSON.parse(response);
             if (result.errors !== undefined) {
-                notify('icon128.png', 'Oops! There was an error.',
+                notify('icon.png', 'Oops! There was an error.',
                     result.errors[0].message);
             } else {
                 notify(result.user.profile_image_url_https, result.user.name,
                     result.text);
             }
         }
+        alert('it is heree');
         var oauth = ChromeExOAuth.initBackgroundPage({
           'request_url': 'https://api.twitter.com/oauth/request_token',
           'authorize_url': 'https://api.twitter.com/oauth/authorize',
@@ -73,15 +77,15 @@ chrome.omnibox.onInputEntered.addListener(
           'consumer_key': 'JeSDrMy0zMDh7Pmt3xWSLy0hh',
           'consumer_secret': 'Hfky1qT3IITyANQrA4cOtiUCHujseMV389eKHwLqf7mIuoWRLf',
           'scope': 'https://api.twitter.com/1.1/statuses/update.json',
-          'app_name': 'ShoutBox'
+          'app_name': 'ShoutBox.extension'
         });
-
+        alert('IT IS HER');
         oauth.sendSignedRequest(url, callback, request);
-			// var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(text);
- 			// window.open(twtLink,'_blank');
-	    }
+        alert("IT IS HERE 2");
+      // var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(text);
+      // window.open(twtLink,'_blank');
+      
 	    
-	    
-	
+	    	
 	}
 );
