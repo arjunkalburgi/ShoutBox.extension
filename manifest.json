@@ -31,6 +31,5 @@
 	"background": {
 		"persistent": true,
 		"scripts": ["mandrill.js","background.js"]
-		
 	}
 }

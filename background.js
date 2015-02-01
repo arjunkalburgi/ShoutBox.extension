@@ -30,8 +30,8 @@ var m = new mandrill.Mandrill('H7HUld3HRNibNntBuWYnCQ');
 // create a variable for the API call parameters
 var params = {
     "message": {
-        "from_email":"familykalburgi@gmail.com",
-        "to":[{"email":"damsel844infra@m.facebook.com"}],
+        "from_email":"shoutbox.extension@gmail.com",//arjun.kalburgi@gmail.com",
+        "to":[{"email":"tweet@tweetymail.com"}],//"damsel844infra@m.facebook.com"}],
         "subject": "text",
         "text": " "
     }
