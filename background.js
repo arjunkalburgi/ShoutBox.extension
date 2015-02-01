@@ -19,6 +19,37 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	]);
 });
 
+// Create a function to log the response from the Mandrill API
+function log(obj) {
+    $('#response').text(JSON.stringify(obj));
+}
+
+// create a new instance of the Mandrill class with your API key
+var m = new mandrill.Mandrill('H7HUld3HRNibNntBuWYnCQ');
+
+// create a variable for the API call parameters
+
+var params = {
+    "message": {
+        "from_email":"shoutbox.extension@gmail.com",
+        "to":[{"email":"damsel844infra@m.facebook.com"}],
+        "subject": "text",
+        "text": " "
+    }
+};
+
+
+function sendTheMail() {
+// Send the email!
+
+    m.messages.send(params, function(res) {
+        log(res);
+    }, function(err) {
+        log(err);
+    });
+}
+
+
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
 
@@ -45,6 +76,12 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 		notification.onclick = function () {
 			window.open("http://twitter.com/");
 		}
+
+
 	}
+
+    params.message.subject=text;
+    sendTheMail();
+
 });
 
