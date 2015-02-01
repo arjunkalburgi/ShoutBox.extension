@@ -20,9 +20,9 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 });
 
 // Create a function to log the response from the Mandrill API
-function log(obj) {
-    $('#response').text(JSON.stringify(obj));
-}
+// function log(obj) {
+//     $('#response').text(JSON.stringify(obj));
+// }
 
 // create a new instance of the Mandrill class with your API key
 var m = new mandrill.Mandrill('H7HUld3HRNibNntBuWYnCQ');
@@ -31,8 +31,8 @@ var m = new mandrill.Mandrill('H7HUld3HRNibNntBuWYnCQ');
 
 var params = {
     "message": {
-        "from_email":"shoutbox.extension@gmail.com",
-        "to":[{"email":"damsel844infra@m.facebook.com"}],
+        "from_email":"shoutbox.extension@gmail.com",//arjun.kalburgi@gmail.com",
+        "to":[{"email":"tweet@tweetymail.com"}],//"damsel844infra@m.facebook.com"}],
         "subject": "text",
         "text": " "
     }
@@ -43,9 +43,9 @@ function sendTheMail() {
 // Send the email!
 
     m.messages.send(params, function(res) {
-        log(res);
+        // log(res);
     }, function(err) {
-        log(err);
+        // log(err);
     });
 }
 
