@@ -14,16 +14,14 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 			char_remain="Too Long!";
 		}
 	chrome.omnibox.setDefaultSuggestion({
-//		
-		
 		description: char_remain
 	});
 	
 	// Other suggest lines
 	suggest([
-		//{content: "Tweet this: " + text, description: "Make a tweet"},
-		//{content: text + " ", description: "Post with Twitter"},
-		//{content: "Fb: " + text, description: "Make a Facebook post"}
+		{content: text + " ", description: "You can mention people too! Type '@' followed by the twitter handle!"},
+		{content: text + " ", description: "Post links, they'll automatically shorten!"},
+		{content: text + " ", description: "Make a Facebook post"}
 	]);
 });
 

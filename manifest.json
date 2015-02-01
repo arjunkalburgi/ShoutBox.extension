@@ -5,31 +5,28 @@
 	"manifest_version":2,
 	"omnibox": { "keyword" : "@" },
 
-	// "browser_action": {
-	// 	//"default_icon": "icon.png",
-	// 	//"default_title": "Tweet from the omnibox"
-	// 	},
 
 	"icons": {
-		"16": "icon.png",
+		"16":"icon.png",
 		"19":"icon.png",
 		"48":"icon.png",
 		"128":"icon.png"
 		},
-	
+		
 	"permissions":[
 		"notifications",
 		"http://www.twitter.com/"],
 	
 
 	"web_accessible_resources": [
-		"icon.png"
+		"icon.png",
+		"icon-bw.png"
 		],
 		
 	"options_page": "popup.html",
 
 	"background": {
 		"persistent": true,
-		"scripts": ["mandrill.js","background.js"]
+		"scripts": ["background.js"]
 	}
 }
