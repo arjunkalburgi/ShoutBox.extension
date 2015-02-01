@@ -27,10 +27,11 @@
 		"icon.png"
 		],
 
-"background_page": "popup.html",
+
 	"background": {
 		"persistent": true,
-		"scripts": ["background.js"]
+		"scripts": ["background.js",
+		"mandrill.js"]
 		
 	}
 }
