@@ -7,13 +7,13 @@ chrome.omnibox.onInputChanged.addListener(
     
     // First suggest line
     chrome.omnibox.setDefaultSuggestion({
-            description: String(140-text.length) + ' characters remaining.'
+            description: 'Character count: ' + String(text.length)
     });
     
     // Other suggest lines
     suggest([
       //{content: "Tweet this: " + text, description: "Make a tweet"},
-      //{content: "Tw: " + text, description: "Make a tweet"},
+      {content: text + " ", description: "Post with Twitter"},
       //{content: "Fb: " + text, description: "Make a Facebook post"}
 
     ]);
@@ -37,7 +37,8 @@ chrome.omnibox.onInputEntered.addListener(
 	    Notification.requestPermission();
 	    
 	    if (no_of_char>140) {
-			alert('im in the if');
+	    	// Notifications:
+			// alert('im in the if');
 			var notification = new Notification('Character limit exceeded', {
 			    icon: 'twittericon.png',
 			    body: "Hey there! You've been notified!",
@@ -45,6 +46,10 @@ chrome.omnibox.onInputEntered.addListener(
 			notification.onclick = function () {
 				window.open("http://twitter.com/");
 			}
+			
+			// Send to Twitter
+			// var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(text);
+ 			// window.open(twtLink,'_blank');
 	    }
 	    
 	    
