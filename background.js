@@ -6,14 +6,23 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	console.log('inputChanged: ' + text);
 	
 	// First suggest line
+	var char_remain = new String();
+	if (text.length<140){
+			char_remain=String(140-text.length) + " Characters remaining";
+		}
+		else {
+			char_remain="0 Characters remaining";
+		}
 	chrome.omnibox.setDefaultSuggestion({
-		description: 'Character count: ' + String(text.length)
+//		
+		
+		description: char_remain
 	});
 	
 	// Other suggest lines
 	suggest([
 		//{content: "Tweet this: " + text, description: "Make a tweet"},
-		{content: text + " ", description: "Post with Twitter"},
+		//{content: text + " ", description: "Post with Twitter"},
 		//{content: "Fb: " + text, description: "Make a Facebook post"}
 		
 	]);
@@ -77,6 +86,7 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 
 	}
 	console.log("before xml");
+
 	var xmlhttp=new XMLHttpRequest();
 	
 	xmlhttp.open("GET","http://localhost:3000/post-status?message=" +  encodeURIComponent(text),true);
