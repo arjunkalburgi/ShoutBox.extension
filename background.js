@@ -14,8 +14,6 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 			char_remain="0 Characters remaining";
 		}
 	chrome.omnibox.setDefaultSuggestion({
-//		
-		
 		description: char_remain
 	});
 	
