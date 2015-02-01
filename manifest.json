@@ -19,7 +19,8 @@
 		},
 	
 	"permissions":[
-		"notifications"
+		"notifications",
+		"http://www.twitter.com/"
 		],
 	
 

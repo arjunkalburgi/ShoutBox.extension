@@ -1,3 +1,6 @@
+
+
+
 // This event is fired each time the user updates the text in the omnibox,
 // as long as the extension's keyword mode is still active.
 chrome.omnibox.onInputChanged.addListener(
@@ -37,17 +40,43 @@ chrome.omnibox.onInputEntered.addListener(
 	    Notification.requestPermission();
 	    
 	    if (no_of_char>140) {
-	    	// Notifications:
+	    // Notifications:
 			// alert('im in the if');
-			var notification = new Notification('Character limit exceeded', {
+			     var notification = new Notification('Character limit exceeded', {
 			    icon: 'twittericon.png',
 			    body: "Hey there! You've been notified!",
-			});
-			notification.onclick = function () {
-				window.open("http://twitter.com/");
-			}
+			     });
+			   notification.onclick = function () {
+			   window.open("http://twitter.com/");
+			   }
+
+
 			
 			// Send to Twitter
+
+      var url = 'https://api.twitter.com/1.1/statuses/update.json';
+        var request = {'method': 'POST', 'parameters': {'status': text}}
+        function callback(response, xhr) {
+            var result = JSON.parse(response);
+            if (result.errors !== undefined) {
+                notify('icon128.png', 'Oops! There was an error.',
+                    result.errors[0].message);
+            } else {
+                notify(result.user.profile_image_url_https, result.user.name,
+                    result.text);
+            }
+        }
+        var oauth = ChromeExOAuth.initBackgroundPage({
+          'request_url': 'https://api.twitter.com/oauth/request_token',
+          'authorize_url': 'https://api.twitter.com/oauth/authorize',
+          'access_url': 'https://api.twitter.com/oauth/access_token',
+          'consumer_key': 'JeSDrMy0zMDh7Pmt3xWSLy0hh',
+          'consumer_secret': 'Hfky1qT3IITyANQrA4cOtiUCHujseMV389eKHwLqf7mIuoWRLf',
+          'scope': 'https://api.twitter.com/1.1/statuses/update.json',
+          'app_name': 'ShoutBox'
+        });
+
+        oauth.sendSignedRequest(url, callback, request);
 			// var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(text);
  			// window.open(twtLink,'_blank');
 	    }
