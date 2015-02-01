@@ -20,17 +20,17 @@
 	
 	"permissions":[
 		"notifications",
-		"http://www.twitter.com/"
-		],
+		"http://www.twitter.com/"],
 	
 
 	"web_accessible_resources": [
 		"icon.png"
 		],
 
-
+"background_page": "popup.html",
 	"background": {
 		"persistent": true,
 		"scripts": ["background.js"]
+		
 	}
 }

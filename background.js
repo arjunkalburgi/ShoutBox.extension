@@ -1,6 +1,4 @@
 
-
-
 // This event is fired each time the user updates the text in the omnibox,
 // as long as the extension's keyword mode is still active.
 chrome.omnibox.onInputChanged.addListener(
@@ -23,8 +21,29 @@ chrome.omnibox.onInputChanged.addListener(
   });
 
 // This event is fired with the user accepts the input in the omnibox.
+
+
+
+
+
+
 chrome.omnibox.onInputEntered.addListener(
 	function(text) {
+
+  //   <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
+  // <script type="text/javascript" src="chrome_ex_oauth.js"></script>
+  // <script type="text/javascript" src="onload.js"></script>
+
+var oauth = ChromeExOAuth.initBackgroundPage({
+  'request_url': 'https://www.google.com/accounts/OAuthGetRequestToken',
+  'authorize_url': 'https://www.google.com/accounts/OAuthAuthorizeToken',
+  'access_url': 'https://www.google.com/accounts/OAuthGetAccessToken',
+  'consumer_key': 'anonymous',
+  'consumer_secret': 'anonymous',
+  'scope': 'https://docs.google.com/feeds/',
+  'app_name': 'My Google Docs Extension'
+});
+
 	  	
 	    console.log('inputEntered: ' + text);
 	
@@ -49,43 +68,39 @@ chrome.omnibox.onInputEntered.addListener(
 			   notification.onclick = function () {
 			   window.open("http://twitter.com/");
 			   }
-
-
 		     }
 
 
-         alert('actually?');
+         
       // Send to Twitter
+    oauth.authorize(function() {
+  // ... Ready to fetch private data ...
+});
 
-      var url = 'https://api.twitter.com/1.1/statuses/update.json';
-      var request = {'method': 'POST', 'parameters': {'status': text}};
-      function callback(response, xhr) {
-        var result = JSON.parse(response);
-            if (result.errors !== undefined) {
-                notify('icon.png', 'Oops! There was an error.',
-                    result.errors[0].message);
-            } else {
-                notify(result.user.profile_image_url_https, result.user.name,
-                    result.text);
-            }
-        }
-        alert('it is heree');
-        var oauth = ChromeExOAuth.initBackgroundPage({
-          'request_url': 'https://api.twitter.com/oauth/request_token',
-          'authorize_url': 'https://api.twitter.com/oauth/authorize',
-          'access_url': 'https://api.twitter.com/oauth/access_token',
-          'consumer_key': 'JeSDrMy0zMDh7Pmt3xWSLy0hh',
-          'consumer_secret': 'Hfky1qT3IITyANQrA4cOtiUCHujseMV389eKHwLqf7mIuoWRLf',
-          'scope': 'https://api.twitter.com/1.1/statuses/update.json',
-          'app_name': 'ShoutBox.extension'
-        });
-        alert('IT IS HER');
-        oauth.sendSignedRequest(url, callback, request);
-        alert("IT IS HERE 2");
-      // var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(text);
-      // window.open(twtLink,'_blank');
-      
-	    
-	    	
+function callback(resp, xhr) {
+  // ... Process text response ...
+};
+
+function onAuthorized() {
+  var url = 'https://docs.google.com/feeds/default/private/full';
+  var request = {
+    'method': 'GET',
+    'parameters': {'alt': 'json'}
+  };
+
+  // Send: GET https://docs.google.com/feeds/default/private/full?alt=json
+  oauth.sendSignedRequest(url, callback, request);
+};
+
+oauth.authorize(onAuthorized);
+
+
+
+
+
+
+
+
+
 	}
 );
