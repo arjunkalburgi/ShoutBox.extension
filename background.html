@@ -1,8 +1,42 @@
 <html>
-<head>
-<script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
-<script type="text/javascript" src="chrome_ex_oauth.js"></script>
-<script type="text/javascript" src="onload.js"></script>
-<script type="text/javascript" src="background.js"></script>
-</head>
+	<head>
+		<script type="text/javascript" src="oauth/chrome_ex_oauthsimple.js"></script>
+		<script type="text/javascript" src="oauth/chrome_ex_oauth.js"></script>
+		<script type="text/javascript" src="oauth/onload.js"></script>		
+
+		<!--<script type="text/javascript">
+			// oauth
+			var oauth = ChromeExOAuth.initBackgroundPage({
+				'request_url': 'https://api.twitter.com/oauth/request_token',
+				'authorize_url': 'https://api.twitter.com/oauth/authorize',
+				'access_url': 'https://api.twitter.com/oauth/access_token',
+				'consumer_key': 'JeSDrMy0zMDh7Pmt3xWSLy0hh',
+				'consumer_secret': 'Hfky1qT3IITyANQrA4cOtiUCHujseMV389eKHwLqf7mIuoWRLf',
+				'scope': '',
+				// 'scope': 'https://api.twitter.com',
+				'app_name': 'ShoutBox.extension'
+			});
+
+			function callback(resp, xhr) {
+				alert("I don't know what I'm doing lol"); 
+			}
+
+			console.log("outside");
+
+			oauth.authorize(function() {
+				console.log("running authorize"); 
+				var url = 'http://api.twitter.com/1/account/verify_credentials.json'; 
+				var request = {
+					'force_login': '', 
+					'screen_name': ''};
+				oauth.sendSignedRequest(url, callback, request);
+				console.log("work?");
+			})
+		</script>-->
+
+		<script type="text/javascript" src="background.js"></script>
+	</head>
+	<body>
+		Yo
+	</body>
 </html>

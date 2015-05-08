@@ -1,3 +1,27 @@
+// oauth
+var oauth = ChromeExOAuth.initBackgroundPage({
+	'request_url': 'https://api.twitter.com/oauth/request_token',
+	'authorize_url': 'https://api.twitter.com/oauth/authorize',
+	'access_url': 'https://api.twitter.com/oauth/access_token',
+	'consumer_key': 'JeSDrMy0zMDh7Pmt3xWSLy0hh',
+	'consumer_secret': 'Hfky1qT3IITyANQrA4cOtiUCHujseMV389eKHwLqf7mIuoWRLf',
+	'scope': 'https://api.twitter.com/oauth2/token',
+	'app_name': 'ShoutBox.extension'
+});
+
+function callback(resp, xhr) {
+	alert("I don't know what I'm doing lol"); 
+}
+
+oauth.authorize(function() {
+	console.log("running authorize"); 
+	var url = 'http://api.twitter.com/1/account/verify_credentials.json'; 
+	var request = {
+		'force_login': '', 
+		'screen_name': ''};
+	oauth.sendSignedRequest(url, callback, request);
+	console.log("work?");
+})
 
 // This event is fired each time the user updates the text in the omnibox,
 // as long as the extension's keyword mode is still active.
@@ -21,24 +45,23 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 	suggest([
 		{content: text + " ", description: "You can mention people too! Type '@' followed by the twitter handle!"},
 		{content: text + " ", description: "Post links, they'll automatically shorten!"},
-		// {content: text + " ", description: "Make a Facebook post"}
 	]);
 });
 
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
 
-    // console.log('inputEntered: ' + text);
+	// console.log('inputEntered: ' + text);
 
 	// Initialise variable for the number of characters
-    var no_of_char=0;
-    no_of_char=text.length;
-    
-    if (Notification.permission !== "granted")
-    Notification.requestPermission();
-    
-    // If the tweet goes over 140 characters send a notification
-    if (no_of_char>140) {
+	var no_of_char=0;
+	no_of_char=text.length;
+	
+	if (Notification.permission !== "granted")
+	Notification.requestPermission();
+	
+	// If the tweet goes over 140 characters send a notification
+	if (no_of_char>140) {
 		var notification = new Notification('Character limit exceeded', {
 			icon: 'twittericon.png',
 			body: "Oops! You're tweet was too long, try again!",
@@ -47,18 +70,23 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 			window.open("http://twitter.com/");
 		}
 	}
-	
-	// getting keys and tokens for user's app
-	ck = localStorage.getItem("ckey");
-	cs = localStorage.getItem("csec");
-	tk = localStorage.getItem("tkey");
-	ts = localStorage.getItem("tsec");
-	
-	// Sending information to server
-	console.log("before xml");
 
-	var xmlhttp=new XMLHttpRequest();
-	xmlhttp.open("GET","http://localhost:3000/post-status?message=" +  encodeURIComponent(text),true);
-	xmlhttp.send();
+	// Post using Twitter shit
+
+	
+	/* Old stuff 
+		// getting keys and tokens for user's app
+		ck = localStorage.getItem("ckey");
+		cs = localStorage.getItem("csec");
+		tk = localStorage.getItem("tkey");
+		ts = localStorage.getItem("tsec");
+		
+		// Sending information to server
+		console.log("before xml");
+
+		var xmlhttp=new XMLHttpRequest();
+		xmlhttp.open("GET","http://localhost:3000/post-status?message=" +  encodeURIComponent(text),true);
+		xmlhttp.send();
+	*/
 });
 
