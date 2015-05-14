@@ -1,27 +1,47 @@
 // oauth
 var oauth = ChromeExOAuth.initBackgroundPage({
-	'request_url': 'https://api.twitter.com/oauth/request_token',
-	'authorize_url': 'https://api.twitter.com/oauth/authorize',
-	'access_url': 'https://api.twitter.com/oauth/access_token',
-	'consumer_key': 'JeSDrMy0zMDh7Pmt3xWSLy0hh',
-	'consumer_secret': 'Hfky1qT3IITyANQrA4cOtiUCHujseMV389eKHwLqf7mIuoWRLf',
-	'scope': 'https://api.twitter.com/oauth2/token',
-	'app_name': 'ShoutBox.extension'
+	request_url: 'https://api.twitter.com/oauth/request_token',
+	authorize_url: 'https://api.twitter.com/oauth/authorize',
+	access_url: 'https://api.twitter.com/oauth/access_token',
+	consumer_key: 'JeSDrMy0zMDh7Pmt3xWSLy0hh',
+	consumer_secret: 'Hfky1qT3IITyANQrA4cOtiUCHujseMV389eKHwLqf7mIuoWRLf',
+	scope: '',
+	app_name: 'ShoutBox.extension'
 });
-
-function callback(resp, xhr) {
-	alert("I don't know what I'm doing lol"); 
+function install() {
+	console.log("Check localStorage"); 
+	Twitter.verify_credentials({install: true});
+	Twitter.direct_messages({silent: true});
+	Twitter.mentions({silent: true});
+	// Location.search();
+	localStorage.installed = 'true';
+	// Poll.start();
+	console.log('OmiTweet installed successfully!');
 }
+function init() {
+	console.log("inside init");
+	if (localStorage.installed != 'true') {
+		oauth.authorize(install);
+	} else {
+		// Poll.start();
+	}
+}
+init(); 
 
-oauth.authorize(function() {
-	console.log("running authorize"); 
-	var url = 'http://api.twitter.com/1/account/verify_credentials.json'; 
-	var request = {
-		'force_login': '', 
-		'screen_name': ''};
-	oauth.sendSignedRequest(url, callback, request);
-	console.log("work?");
-})
+
+// function callback(resp, xhr) {
+// 	alert("I don't know what I'm doing lol"); 
+// }
+
+// oauth.authorize(function() {
+// 	console.log("running authorize"); 
+// 	var url = 'http://api.twitter.com/1/account/verify_credentials.json'; 
+// 	var request = {
+// 		'force_login': '', 
+// 		'screen_name': ''};
+// 	oauth.sendSignedRequest(url, callback, request);
+// 	console.log("work?");
+// })
 
 // This event is fired each time the user updates the text in the omnibox,
 // as long as the extension's keyword mode is still active.
@@ -51,16 +71,17 @@ chrome.omnibox.onInputChanged.addListener(function(text, suggest) {
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(function(text) {
 
-	// console.log('inputEntered: ' + text);
+	console.log('inputEntered: ' + text);
 
-	// Initialise variable for the number of characters
+	// Initialize variable for the number of characters
 	var no_of_char=0;
 	no_of_char=text.length;
 	
-	if (Notification.permission !== "granted")
-	Notification.requestPermission();
-	
 	// If the tweet goes over 140 characters send a notification
+	if (Notification.permission !== "granted") {
+		// 
+		Notification.requestPermission();
+	}
 	if (no_of_char>140) {
 		var notification = new Notification('Character limit exceeded', {
 			icon: 'twittericon.png',
@@ -72,6 +93,7 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 	}
 
 	// Post using Twitter shit
+	Twitter.update(text);
 
 	
 	/* Old stuff 
@@ -89,4 +111,3 @@ chrome.omnibox.onInputEntered.addListener(function(text) {
 		xmlhttp.send();
 	*/
 });
-
